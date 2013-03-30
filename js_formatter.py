@@ -1,31 +1,42 @@
 import sys, string, re, os, fileinput
 
+def printOut(c, ind):
+	if c == ';':
+		sys.stdout.write(c)
+		print
+		sys.stdout.write(ind)
+	elif c == '{':
+		sys.stdout.write(c)
+		print
+		sys.stdout.write(ind)
+	elif c == '}':
+		print
+		sys.stdout.write(ind)
+		sys.stdout.write(c)
+		print
+		sys.stdout.write(ind)
+	else:
+		sys.stdout.write(c)
+
 def main():
-  	line = sys.stdin.read()
+		line = sys.stdin.read()
 		
-		yes = False
 		indent = ""
 		lenIndent = 0
 		for c in line:
-			if c == ';':
-				yes = True
 			# Add 4 spaces indent
 			if c == '{':
-				yes = True
-				indent = indent + "    "
-				lenIndent = 4
 				print 
 				sys.stdout.write(indent)
+				indent = indent + "    "
+				lenIndent = lenIndent + 4
 			# Remove 4 spaces indent
 			if c == '}' and lenIndent > 0:
-				print 'hereeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee'
 				indent = indent[:lenIndent-4]
 				lenIndent = lenIndent-4
-			sys.stdout.write(c)
-			if yes == True:
-				print
-				sys.stdout.write(indent)
-				yes = False
+			printOut(c, indent)
+			
+				
 		
 		print 
 		print "=+=+=+=+ Finish +=+=+=+="
